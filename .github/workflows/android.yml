@@ -75,7 +75,7 @@ jobs:
 
       - name: Install App
         run: |
-          ./gradlew installDebug
+          ./gradlew :installDebug
       - name: Launch App
         run: |
           sleep 2
