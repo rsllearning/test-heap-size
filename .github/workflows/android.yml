@@ -70,12 +70,13 @@ jobs:
           echo "Emulator has finished booting"
           adb devices
           
-      - name: Boot emulator
-        run: adb shell getprop sys.boot_completed
+      # - name: Boot emulator
+      #   run: adb shell getprop sys.boot_completed
 
       - name: Install App
         run: |
-          ./gradlew :installDebug
+          ./gradlew installDebug
+          
       - name: Launch App
         run: |
           sleep 2
