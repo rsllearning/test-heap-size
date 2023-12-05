@@ -28,28 +28,28 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    #- name: Install Additional packages - emulator
-    #  run: sdkmanager emulator
+    - name: Install Additional packages - emulator
+     run: sdkmanager emulator
 
-    #- name: Install additional packages - platform-tools
-    #  run: sdkmanager platform-tools
+    - name: Install additional packages - platform-tools
+     run: sdkmanager platform-tools
 
-    #- name: Install libpulse
-     # run: sudo apt -y install libpulse-dev
+    - name: Install libpulse
+     run: sudo apt -y install libpulse-dev
 
-    #- run: sudo apt-get update
-    #- run: sudo apt install qemu-kvm
+    - run: sudo apt-get update
+    - run: sudo apt install qemu-kvm
 
-    #- name: Install kvm
-     # run: sudo apt install virt-manager
+    - name: Install kvm
+     run: sudo apt install virt-manager
 
-    #- run: egrep -c '(vmx|svm)' /proc/cpuinfo
-    #- run: kvm-ok 
-    #- name: Enable KVM group perms
-      #run: |
-         # echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          #sudo udevadm control --reload-rules
-          #sudo udevadm trigger --name-match=kvm
+    - run: egrep -c '(vmx|svm)' /proc/cpuinfo
+    - run: kvm-ok 
+    - name: Enable KVM group perms
+      run: |
+         echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
 
     - name: Add user to kvm and change ownership
       run: |
