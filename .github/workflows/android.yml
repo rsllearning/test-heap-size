@@ -37,11 +37,11 @@ jobs:
           emulator-options: -no-window -no-audio -no-skin
           script: |
             ./gradlew installDebug
-            adb logcat -c
+            # adb logcat -c
             touch test_heap_size/emulator.log
             chmod 777 test_heap_size/emulator.log
             # adb logcat com.example.test_heap_size/MainActivity >> test_heap_size/emulator.log &
-            adb shell am start -n com.example.test_heap_size/MainActivity 
+            adb shell am start -n com.example.test_heap_size/.MainActivity 
             # sleep 30
       # - name: Upload logs
       #   uses: actions/upload-artifact@v2
