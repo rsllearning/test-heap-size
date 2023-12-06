@@ -1,0 +1,50 @@
+#  Copyright (c) LinkedIn Corporation.
+#  All rights reserved.
+#
+#  This source code is licensed under the license found in the
+#  LICENSE file in the root directory of this source tree.
+
+name: Performance Profiling
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  bidder_token_generation_time:
+    name: Bidder Token Generation Time
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run emulator, install & launch app and print logs
+        uses: ReactiveCircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          emulator-options: -no-window -no-audio -no-skin
+          script: |
+            ./gradlew installDebug
+            adb logcat -c
+            touch test-app/emulator.log
+            chmod 777 test-app/emulator.log
+            adb logcat com.linkedin.audiencenetwork.testapp.view >> test-app/emulator.log &
+            adb shell am start -n com.linkedin.audiencenetwork.testapp/.view.TestActivity 
+            sleep 30
+      - name: Upload logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: test-app/emulator.log
