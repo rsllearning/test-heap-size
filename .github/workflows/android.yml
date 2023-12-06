@@ -34,4 +34,4 @@ jobs:
           script: |
             ./gradlew installDebug
             sleep 2
-            adb shell am start -n com.linkedin.audiencenetwork.testapp/.view.TestActivity | adb logcat com.linkedin.audiencenetwork.testapp.view 
+            adb shell am start -n com.example.test_heap_size/MainActivity | adb logcat com.example.test_heap_size/MainActivity 
