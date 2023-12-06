@@ -38,13 +38,13 @@ jobs:
           script: |
             ./gradlew installDebug
             adb logcat -c
-            touch test-app/emulator.log
-            chmod 777 test-app/emulator.log
-            adb logcat com.linkedin.audiencenetwork.testapp.view >> test-app/emulator.log &
-            adb shell am start -n com.linkedin.audiencenetwork.testapp/.view.TestActivity 
+            touch test_heap_size/emulator.log
+            chmod 777 test_heap_size/emulator.log
+            adb logcat com.example.test_heap_size/MainActivity >> test_heap_size/emulator.log &
+            adb shell am start -n com.example.test_heap_size/MainActivity 
             sleep 30
       - name: Upload logs
         uses: actions/upload-artifact@v2
         with:
           name: logs
-          path: test-app/emulator.log
+          path: test_heap_size/emulator.log
