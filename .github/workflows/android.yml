@@ -1,5 +1,5 @@
 
-name: Performance Profiling
+name: Cpu Profiling
 
 on:
   push:
@@ -10,8 +10,8 @@ on:
       - '*'
 
 jobs:
-  bidder_token_generation_time:
-    name: Bidder Token Generation Time
+  launch-app:
+    name: Launch App
     runs-on: macos-latest
     steps:
       - name: Checkout the code
