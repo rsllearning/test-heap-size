@@ -36,6 +36,7 @@ jobs:
           arch: x86_64
           emulator-options: -no-window -no-audio -no-skin
           script: |
+            chmod +x gradlew
             ./gradlew installDebug
             # adb logcat -c
             touch test_heap_size/emulator.log
