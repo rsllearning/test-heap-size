@@ -1,0 +1,44 @@
+#  Copyright (c) LinkedIn Corporation.
+#  All rights reserved.
+#
+#  This source code is licensed under the license found in the
+#  LICENSE file in the root directory of this source tree.
+
+name: CPU Profiling
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  cpu_profiling:
+    name: cpu profiling
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run emulator, install & launch app
+        uses: ReactiveCircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          emulator-options: -no-window -no-audio -no-skin
+          script: |
+            chmod +x gradlew
+            ./gradlew installDebug
+            touch test_heap_size/emulator.log
+            chmod 777 test_heap_size/emulator.log
+            adb shell am start -n com.example.test_heap_size/.MainActivity 
+            sleep 30
