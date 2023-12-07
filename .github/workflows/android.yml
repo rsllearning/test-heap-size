@@ -4,7 +4,7 @@
 #  This source code is licensed under the license found in the
 #  LICENSE file in the root directory of this source tree.
 
-name: Performance Profiling
+name: CPU Profiling
 
 on:
   push:
@@ -15,8 +15,8 @@ on:
       - '*'
 
 jobs:
-  bidder_token_generation_time:
-    name: Bidder Token Generation Time
+  cpu_profiling:
+    name: cpu profiling
     runs-on: macos-latest
     steps:
       - name: Checkout the code
@@ -38,14 +38,7 @@ jobs:
           script: |
             chmod +x gradlew
             ./gradlew installDebug
-            # adb logcat -c
             touch test_heap_size/emulator.log
             chmod 777 test_heap_size/emulator.log
-            # adb logcat com.example.test_heap_size/MainActivity >> test_heap_size/emulator.log &
             adb shell am start -n com.example.test_heap_size/.MainActivity 
             sleep 30
-      # - name: Upload logs
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: logs
-      #     path: test_heap_size/emulator.log
